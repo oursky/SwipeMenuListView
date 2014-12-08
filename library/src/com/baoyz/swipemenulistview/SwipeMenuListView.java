@@ -61,9 +61,9 @@ public class SwipeMenuListView extends ListView {
 	public void setAdapter(ListAdapter adapter) {
 		super.setAdapter(new SwipeMenuAdapter(getContext(), adapter) {
 			@Override
-			public void createMenu(SwipeMenu menu) {
+			public void createMenu(SwipeMenu menu, int position) {
 				if (mMenuCreator != null) {
-					mMenuCreator.create(menu);
+					mMenuCreator.create(menu, position);
 				}
 			}
 
@@ -176,7 +176,11 @@ public class SwipeMenuListView extends ListView {
 				ev.setAction(MotionEvent.ACTION_CANCEL);
 				super.onTouchEvent(ev);
 				return true;
-			}
+			} else {
+                if (mOnSwipeListener != null && mTouchState != TOUCH_STATE_Y) {
+                    mOnSwipeListener.onTap(mTouchPosition);
+                }
+            }
 			break;
 		}
 		return super.onTouchEvent(ev);
@@ -220,6 +224,8 @@ public class SwipeMenuListView extends ListView {
 	}
 
 	public static interface OnSwipeListener {
+        void onTap(int position);
+
 		void onSwipeStart(int position);
 
 		void onSwipeEnd(int position);
