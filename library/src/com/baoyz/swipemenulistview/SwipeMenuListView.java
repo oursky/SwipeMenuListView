@@ -67,6 +67,13 @@ public class SwipeMenuListView extends ListView {
 				}
 			}
 
+            @Override
+            public void setMenuContent(SwipeMenu menu, int position) {
+                if (mMenuCreator != null) {
+                    mMenuCreator.setMenuContent(menu, position);
+                }
+            }
+
 			@Override
 			public void onItemClick(SwipeMenuView view, SwipeMenu menu,
 					int index) {

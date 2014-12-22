@@ -10,4 +10,6 @@ package com.baoyz.swipemenulistview;
 public interface SwipeMenuCreator {
 
 	void create(SwipeMenu menu, int position);
+
+    void setMenuContent(SwipeMenu menu, int position);
 }

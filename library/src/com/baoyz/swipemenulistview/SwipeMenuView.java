@@ -30,17 +30,18 @@ public class SwipeMenuView extends LinearLayout implements OnClickListener {
 
 	public void setPosition(int position) {
 		this.position = position;
+        this.removeAllViews();
+        List<SwipeMenuItem> items = mMenu.getMenuItems();
+        int id = 0;
+        for (SwipeMenuItem item : items) {
+            addItem(item, id++);
+        }
 	}
 
 	public SwipeMenuView(SwipeMenu menu, SwipeMenuListView listView) {
 		super(menu.getContext());
 		mListView = listView;
 		mMenu = menu;
-		List<SwipeMenuItem> items = menu.getMenuItems();
-		int id = 0;
-		for (SwipeMenuItem item : items) {
-			addItem(item, id++);
-		}
 	}
 
 	private void addItem(SwipeMenuItem item, int id) {
