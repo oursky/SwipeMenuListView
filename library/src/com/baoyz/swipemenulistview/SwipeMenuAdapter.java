@@ -46,6 +46,32 @@ public class SwipeMenuAdapter implements WrapperListAdapter,
 		return mAdapter.getItemId(position);
 	}
 
+    //urgent workaround for bug #182, the reused SwipeMenuLayout become buggy
+    //this now not reusing the convertView, may have performance issue for low end android
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        SwipeMenuLayout layout = null;
+        View contentView = null;
+
+        contentView = mAdapter.getView(position, null, parent);
+
+        SwipeMenu menu = new SwipeMenu(mContext);
+        menu.setViewType(mAdapter.getItemViewType(position));
+        createMenu(menu, position);
+        SwipeMenuView menuView = new SwipeMenuView(menu,
+                (SwipeMenuListView) parent);
+        menuView.setOnSwipeItemClickListener(this);
+        SwipeMenuListView listView = (SwipeMenuListView) parent;
+        layout = new SwipeMenuLayout(contentView, menuView,
+                listView.getCloseInterpolator(),
+                listView.getOpenInterpolator());
+        layout.setPosition(position);
+        layout.setTag(R.string.app_name, menu);
+
+        return layout;
+    }
+
+/*
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		SwipeMenuLayout layout = null;
@@ -74,7 +100,7 @@ public class SwipeMenuAdapter implements WrapperListAdapter,
 		}
 		return layout;
 	}
-
+*/
     public void setMenuContent(SwipeMenu menu, int position) {
         return;
     }
