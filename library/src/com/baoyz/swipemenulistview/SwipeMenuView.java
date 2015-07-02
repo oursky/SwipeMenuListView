@@ -2,7 +2,9 @@ package com.baoyz.swipemenulistview;
 
 import java.util.List;
 
+import android.content.res.Resources;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -72,11 +74,14 @@ public class SwipeMenuView extends LinearLayout implements OnClickListener {
 	}
 
 	private TextView createTitle(SwipeMenuItem item) {
-		TextView tv = new TextView(getContext());
+		AutoResizeTextView tv = new AutoResizeTextView(getContext());
 		tv.setText(item.getTitle());
 		tv.setGravity(Gravity.CENTER);
 		tv.setTextSize(item.getTitleSize());
 		tv.setTextColor(item.getTitleColor());
+		Resources r = getResources();
+		int px = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, r.getDisplayMetrics());
+		tv.setPadding(px, 0, px, 0);
 		return tv;
 	}
 

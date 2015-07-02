@@ -281,6 +281,7 @@ public class SwipeMenuLayout extends FrameLayout {
 		mMenuView.measure(MeasureSpec.makeMeasureSpec(0,
 				MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(
 				getMeasuredHeight(), MeasureSpec.EXACTLY));
+		setMeasuredDimension(mContentView.getMeasuredWidth(), mContentView.getMeasuredHeight());
 	}
 
 	@Override
